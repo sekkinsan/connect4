@@ -21,7 +21,19 @@ body {
     margin: 5px;
 }
 
-.next-drop {
+.col.empty {
+    cursor: pointer;
+}
+
+.next-red, .next-black {
     background-color: gray;
 }
 
+.col.red {
+    background-color: red;
+    
+}
+
+.col.black {
+    background-color: black;
+}
