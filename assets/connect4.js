@@ -3,6 +3,7 @@ class Connect4 {
         this.rows = 6;
         this.cols = 7;
         this.player = 'red';
+        this.isGameOver = false;
         this.selector = selector;
         this.createGrid();
         this.setupEventListeners();
@@ -41,6 +42,7 @@ class Connect4 {
       }
 
       $board.on('mouseenter', '.col.empty', function(){
+          if (that.isGameOver) return;
           const col = $(this).data('col');
           const $lastEmptyCell = findLastEmptyCell(col);
           $lastEmptyCell.addClass(`next-${that.player}`);
@@ -51,6 +53,7 @@ class Connect4 {
       });
 
       $board.on('click', '.col.empty', function() {
+          if (that.isGameOver) return;
           const col = $(this).data('col');
           const row = $(this).data('row');
           const $lastEmptyCell = findLastEmptyCell(col);
@@ -60,6 +63,8 @@ class Connect4 {
 
           const winner = that.checkVictory($lastEmptyCell.data('row'), $lastEmptyCell.data('col'));
           if (winner) {
+              that.isGameOver = true;
+              $('.col.empty').removeClass('empty');
               alert(`Game over! Player ${that.player} has won!`);
               return;
           }
